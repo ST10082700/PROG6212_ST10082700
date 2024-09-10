@@ -46,7 +46,13 @@
     line-height: 150%;
     color: #F1E1E1;
     cursor: pointer;
+    transition: background-color 300ms ease-out, color 300ms ease-out; /* Smooth transition */
 }
+
+    .login-button:hover {
+        background-color: #8B1212; /* New background on hover */
+        color: #F1E1E1; /* Text color on hover */
+    }
 
 .hero-section {
     display: flex;
@@ -76,12 +82,13 @@
         font-weight: 700;
         font-size: 48px;
         line-height: 150%;
-        text-align: center;
+        text-align: justify;
         color: #141111;
     }
 
 .highlight {
     color: #CC3333;
+    font-size: 128px;
 }
 
 .button-get-started {
@@ -101,7 +108,13 @@
     line-height: 150%;
     color: #F1E1E1;
     cursor: pointer;
+    transition: background-color 300ms ease-out, color 300ms ease-out; /* Smooth transition */
 }
+
+    .button-get-started:hover {
+        background-color: #8B1212; /* New background on hover */
+        color: #F1E1E1; /* Text color on hover */
+    }
 
 @media (max-width: 768px) {
     .frame-1 h1 {

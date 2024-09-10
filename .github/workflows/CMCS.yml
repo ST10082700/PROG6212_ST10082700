@@ -8,9 +8,33 @@ on:
 
 jobs:
   build-and-test:
-    # Keep this job as is
-    ...
-
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    
+    - name: Restore dependencies
+      run: dotnet restore "PROG6212 - CMCS - ST10082700.csproj"
+    
+    - name: Build
+      run: dotnet build "PROG6212 - CMCS - ST10082700.csproj" --configuration Release --no-restore
+    
+    - name: Test
+      run: dotnet test "PROG6212 - CMCS - ST10082700.csproj" --no-build --verbosity normal
+    
+    - name: Publish
+      run: dotnet publish "PROG6212 - CMCS - ST10082700.csproj" -c Release -o ./publish
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: CMCS-app
+        path: ./publish
   docker:
     needs: build-and-test
     runs-on: ubuntu-latest

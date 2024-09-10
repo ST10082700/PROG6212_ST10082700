@@ -50,11 +50,11 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        push: true 
+        push: false 
         tags: cmcs-image:latest
         
     - name: Run Docker container
       run: |
-        docker run -d -p 8080:8080 -p 8081:8081 --name cmcs-container cmcs-image:latest
-        docker ps
+        docker run -d -p 32768:8080 -p 32769:8081 --name prog6212_cmcs_st10082 cmcs-image:latest
+        docker ps 
         

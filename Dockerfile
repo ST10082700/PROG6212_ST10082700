@@ -22,4 +22,4 @@ RUN dotnet publish "./PROG6212 - CMCS - ST10082700.csproj" -c $BUILD_CONFIGURATI
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PROG6212 - CMCS - ST10082700.dll"]
+ENTRYPOINT ["dotnet", 

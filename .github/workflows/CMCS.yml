@@ -50,7 +50,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        push: false  # Set to true if you want to push to a registry
+        push: true 
         tags: cmcs-image:latest
         
     - name: Run Docker container
@@ -58,12 +58,3 @@ jobs:
         docker run -d -p 8080:8080 -p 8081:8081 --name cmcs-container cmcs-image:latest
         docker ps
         
-    # Add more steps here for testing the running container if needed
-
-  # Uncomment and configure the following job if you want to deploy
-  # deploy:
-  #   needs: docker
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Deploy to production
-  #     run: echo "Add your deployment steps here"

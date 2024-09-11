@@ -4,9 +4,9 @@ namespace PROG6212___CMCS___ST10082700.Controllers
 {
     public class MenuController : Controller
     {
-        public IActionResult Index()
+        public IActionResult HamburgerMenu()
         {
-            return View("HamburgerMenu");
+            return View();
         }
     }
 }

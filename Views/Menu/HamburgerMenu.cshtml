@@ -7,15 +7,19 @@
         <div class="application-logo">
             <img src="~/Images/CMCS - logo.png" alt="CMCS Logo" />
         </div>
-        <button class="close-button">
+        <button id="closeMenuButton" class="close-button">
             <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12.5 12.5L37.5 37.5M37.5 12.5L12.5 37.5" stroke="#8B1212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
         </button>
     </header>
     <nav class="hamburger-menu-buttons">
-        <a href="@Url.Action("Index", "Home")" class="menu-button home-button">HOME</a>
-        <a href="@Url.Action("Logout", "Account")" class="menu-button logout-button">LOGOUT</a>
-        <a href="@Url.Action("Index", "Claims")" class="menu-button claims-button">CLAIMS</a>
+        <a href="#" id="homeButton" class="menu-button home-button">HOME</a>
+        <a href="#" id="logoutButton" class="menu-button logout-button">LOGOUT</a>
+        <a href="#" id="claimsButton" class="menu-button claims-button">CLAIMS</a>
     </nav>
 </div>
+
+@section Scripts {
+    <script src="~/js/hamburger-menu.js"></script>
+}

@@ -1,6 +1,48 @@
-﻿namespace PROG6212___CMCS___ST10082700.Views.Lecturer
-{
-    public class EnterClaimDetails
-    {
-    }
+﻿@model PROG6212___CMCS___ST10082700.Models.ClaimSubmissionModel
+@{
+    ViewData["Title"] = "Enter Claim Details";
 }
+
+<div class="enter-claim-page">
+    <header class="main-header">
+        <div class="application-logo">
+            <img src="~/Images/CMCS - logo.png" alt="CMCS Logo" />
+        </div>
+        <button class="hamburger-menu" id="hamburgerMenu">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.9375 15.625H39.0625" stroke="#8B1212" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M10.9375 25H39.0625" stroke="#8B1212" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M10.9375 34.375H39.0625" stroke="#8B1212" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+    </header>
+    <h1 class="page-title">Enter Your Claim Details.</h1>
+    <form class="claim-submission-form" id="claimForm">
+        <div class="form-group">
+            <label for="ClaimName">Claim name</label>
+            <input type="text" id="ClaimName" name="ClaimName" placeholder="Enter the claim name here" required>
+        </div>
+        <div class="form-group">
+            <label for="ClaimDate">Date</label>
+            <input type="text" id="ClaimDate" name="ClaimDate" placeholder="Enter today's date here" required>
+        </div>
+        <div class="form-group">
+            <label for="HoursWorked">Hours worked</label>
+            <input type="text" id="HoursWorked" name="HoursWorked" placeholder="Enter hours worked here" required>
+        </div>
+        <div class="form-group">
+            <label for="HourlyRate">Hourly rates</label>
+            <input type="text" id="HourlyRate" name="HourlyRate" placeholder="Enter hourly rate here" required>
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea id="Description" name="Description" placeholder="Describe your claim here" required></textarea>
+        </div>
+        <div class="button-group">
+            <label for="SupportingDocument" class="upload-button">Upload</label>
+            <input type="file" id="SupportingDocument" name="SupportingDocument" style="display: none;">
+            <button type="submit" class="submit-button">Submit</button>
+        </div>
+    </form>
+</div>
+</div>

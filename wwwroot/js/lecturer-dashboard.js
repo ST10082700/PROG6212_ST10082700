@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿document.addEventListener('DOMContentLoaded', function () {
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const enterClaimButton = document.getElementById('enterClaimButton');
+    const viewClaimsButton = document.getElementById('viewClaimsButton');
 
-namespace PROG6212___CMCS___ST10082700.wwwroot.js
-{
-    public class lecturer_dashboard : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
-}
+    hamburgerMenu.addEventListener('click', function () {
+        window.location.href = '/Menu';
+    });
+
+    enterClaimButton.addEventListener('click', function () {
+        window.location.href = '/Lecturer/EnterClaimDetails';
+    });
+
+    viewClaimsButton.addEventListener('click', function () {
+        window.location.href = '/Lecturer/ViewClaims';
+    });
+});

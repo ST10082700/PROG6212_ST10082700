@@ -8,29 +8,25 @@
         <div class="application-logo">
             <img src="~/Images/CMCS - logo.png" alt="CMCS Logo" />
         </div>
-        <a href="@Url.Action("Index", "Menu")" class="hamburger-menu">
+        <button class="hamburger-menu" id="hamburgerMenu">
             <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.9375 15.625H39.0625" stroke="#8B1212" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M10.9375 25H39.0625" stroke="#8B1212" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M10.9375 34.375H39.0625" stroke="#8B1212" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-        </a>
+        </button>
     </header>
     <h1 class="welcome-text">Welcome Lecturer.</h1>
     <div class="homepage-buttons">
-        <a href="#" class="button">
+        <button class="button" id="enterClaimButton">
             <span>Enter Claim</span>
-            <svg class="arrow-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </a>
-        <a href="#" class="button">
+        </button>
+        <button class="button" id="viewClaimsButton">
             <span>View Claims</span>
-            <svg class="arrow-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </a>
+        </button>
     </div>
-</div> 
+</div>
+
+@section Scripts {
+    <script src="~/js/lecturer-dashboard.js"></script>
+}

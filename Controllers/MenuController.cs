@@ -6,7 +6,7 @@ namespace PROG6212___CMCS___ST10082700.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View("HamburgerMenu");
         }
     }
 }

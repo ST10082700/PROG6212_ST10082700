@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PROG6212_CMCS_ST10082700.Models
+namespace PROG6212___CMCS___ST10082700.Models
 {
     public class LoginViewModel
     {

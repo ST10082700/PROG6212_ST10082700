@@ -38,8 +38,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    text-align: justify;
     padding: 20px;
+    
 }
 
 .frame-1 {
@@ -62,6 +63,12 @@ h2 {
 
 .highlight {
     color: #D22B2B;
+    font-size: 128px;
+}
+
+.highlight:hover {
+    font-size: 150px;
+    color: #A91B0D;
 }
 
 .button-get-started {

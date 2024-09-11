@@ -2,11 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 <div class="landingpage">
-    <header class="homepage-header">
+    <header class="landing-header">
         <div class="application-logo">
             <img src="~/Images/CMCS - logo.png" alt="CMCS Logo" />
         </div>
-        <button id="topLoginBtn" class="login-button jost-bold">LOGIN</button>
+        <a href="@Url.Action("Login", "Account")" class="login-button jost-bold">LOGIN</a>
     </header>
     <main class="hero-section">
         <div class="frame-1">

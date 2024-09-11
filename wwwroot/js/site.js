@@ -1,4 +1,10 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿// Hamburger menu functionality
+document.addEventListener('DOMContentLoaded', function () {
+    const hamburgerButton = document.querySelector('.hamburger-menu');
+    if (hamburgerButton) {
+        hamburgerButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = this.getAttribute('href');
+        });
+    }
+});

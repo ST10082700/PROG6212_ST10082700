@@ -1,20 +1,13 @@
-﻿
-
-@model PROG6212_CMCS_ST10082700.Models.LoginViewModel
-@using PROG6212_CMCS_ST10082700.Models
-
+﻿@model PROG6212___CMCS___ST10082700.Models.LoginViewModel
 @{
-
     ViewData["Title"] = "Login";
-
 }
-
 <div class="login-container">
-    <div class="login-header">
+    <header class="login-header">
         <div class="application-logo">
-            <img src="~/Images/CMCS - logo.png" />
+            <img src="~/Images/CMCS - logo.png" alt="CMCS Logo" />
         </div>
-    </div>
+    </header>
     <h1 class="login-title">LOG IN TO THE CONTRACT MONTHLY CLAIM SYSTEM</h1>
     <form asp-action="Login" asp-controller="Account" method="post" class="login-form">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -31,7 +24,6 @@
         <button type="submit" class="continue-button">Continue</button>
     </form>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

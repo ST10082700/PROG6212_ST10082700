@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PROG6212_CMCS_ST10082700.Models;
+using PROG6212___CMCS___ST10082700.Models;
 
-namespace PROG6212_CMCS_ST10082700.Controllers
+
+namespace  PROG6212___CMCS___ST10082700.Controllers 
 {
     public class AccountController : Controller
     {

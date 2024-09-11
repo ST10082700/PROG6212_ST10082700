@@ -6,7 +6,7 @@
 
     hamburgerMenu.addEventListener('click', function () {
         // Navigate to the menu page
-        window.location.href = '/Menu';
+        window.location.href = '/Menu/HamburgerMenu';
     });
 
     uploadButton.addEventListener('click', function () {
@@ -19,6 +19,7 @@
         }
     });
 
+    /*
     claimForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -44,4 +45,5 @@
                 alert('An error occurred. Please try again.');
             });
     });
+    */ // WILL IMPLEMENTT LATER, ONCE DATABASE IS CREATED WITH EF CORE 
 });

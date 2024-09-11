@@ -4,14 +4,16 @@
     const viewClaimsButton = document.getElementById('viewClaimsButton');
 
     hamburgerMenu.addEventListener('click', function () {
-        window.location.href = '/Menu';
+        window.location.href = '/Menu/HamburgerMenu';
     });
 
     enterClaimButton.addEventListener('click', function () {
         window.location.href = '/Lecturer/EnterClaimDetails';
     });
 
+    /*
     viewClaimsButton.addEventListener('click', function () {
-        window.location.href = '/Lecturer/ViewClaims';
+        window.location.href = '/Lecturer/SubmittedClaims';
     });
+    */
 });

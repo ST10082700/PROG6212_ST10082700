@@ -62,7 +62,7 @@ body, html {
     padding: 50px 30px;
     width: 358px;
     height: 200px;
-    background: #F1E1E1;
+    background-color: #F1E1E1;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 60px;
     text-decoration: none;
@@ -78,10 +78,11 @@ body, html {
 .arrow-icon {
     width: 24px;
     height: 24px;
+    color: #141111;
 }
 
 .button:hover {
-    background: #8B1212;
+    background-color: #8B1212;
 }
 
     .button:hover span,

@@ -4,16 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CMCS</title>
+
+    <!-- Favicon links -->
+    <link rel="shortcut icon" type="image/x-icon" asp-href-include="~/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" asp-href-include="~/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" asp-href-include="~/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" asp-href-include="~/apple-touch-icon.png">
+    <link rel="manifest" asp-href-include="~/site.webmanifest">
+
+    <!-- CSS Files -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/landing-page.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login-page.css" asp-append-version="true" />
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     @RenderBody()
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

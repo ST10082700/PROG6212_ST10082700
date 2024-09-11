@@ -1,19 +1,24 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
 <div class="landingpage">
     <header class="homepage-header">
         <div class="application-logo">
-            <img src="Images/CMCS - logo.png"/> 
+            <img src="~/Images/CMCS - logo.png" alt="CMCS Logo" />
         </div>
-        <button class="login-button jost-bold">LOGIN</button>
+        <button id="topLoginBtn" class="login-button jost-bold">LOGIN</button>
     </header>
-
     <main class="hero-section">
         <div class="frame-1">
-            <h1 class="jost-bold">MANAGE YOUR <span class="highlight">CLAIM</span> IN THE MOST EFFICIENT WAY</h1>
+            <h1 class="jost-bold">MANAGE YOUR <span class="highlight">CLAIM</span></h1>
+            <h2 class="jost-bold">IN THE MOST EFFICIENT WAY</h2>
         </div>
-        <button class="button-get-started jost-bold">GET STARTED</button>
+        <button id="getStartedBtn" class="button-get-started jost-bold">GET STARTED</button>
     </main>
 </div>
+<script>
+    var loginUrl = '@Url.Action("Login", "Account")';
+</script>
+@section Scripts {
+    <script src="~/js/landing-page.js"></script>
+}

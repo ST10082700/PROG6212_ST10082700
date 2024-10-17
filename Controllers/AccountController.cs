@@ -16,10 +16,27 @@ namespace  PROG6212___CMCS___ST10082700.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Will implement this later, with functionality to check if the user exists in the database
+                // Check the username and redirect accordingly
+                switch (model.Username.ToLower())
+                {
+                    case "lecturer@keemouniversity.com":
+                        return RedirectToAction("Dashboard", "Lecturer");
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    case "coordinator@keemouniversity.com":
+                        TempData["WelcomeMessage"] = "Welcome Coordinator";
+                        return RedirectToAction("Dashboard", "Admin");
+
+                    case "manager@keemouniversity.com":
+                        TempData["WelcomeMessage"] = "Welcome Manager";
+                        return RedirectToAction("Dashboard", "Admin");
+
+                    default:
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                        break;
+                }
             }
+
+            // If we got this far, something failed; redisplay the form
             return View(model);
         }
     }

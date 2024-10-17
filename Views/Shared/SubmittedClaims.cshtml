@@ -1,6 +1,6 @@
-﻿@model PROG6212___CMCS___ST10082700.Models.AdminDashboardModel
+﻿@model List<PROG6212___CMCS___ST10082700.Models.ClaimModel>
 
-<div class="admin-dashboard">
+<div class="submitted-claims-page">
     <header class="main-header">
         <div class="application-logo">
             <img src="~/Images/CMCS - logo.png" alt="CMCS Logo" />
@@ -13,17 +13,17 @@
             </svg>
         </button>
     </header>
-
-    <h1 class="welcome-message">@Model.WelcomeMessage</h1>
-
-    <div class="dashboard-buttons">
-        <a href="@Url.Action("ViewSubmittedClaims", "Admin")" class="dashboard-button">
-            <span>View Submitted Claims</span>
-            <span class="arrow">→</span>
-        </a>
+    <h1 class="page-title">Submitted Claims.</h1>
+    <div class="claims-list">
+        @foreach (var claim in Model)
+        {
+            <a href="@Url.Action("ClaimDetails", "Admin", new { id = claim.Id })" class="claim-button">
+                <span class="claim-name">@claim.ClaimName</span>
+                <span class="arrow">→</span>
+            </a>
+        }
     </div>
 </div>
-
 @section Scripts {
-    <script src="~/js/admin-dashboard.js"></script>
+    <script src="~/js/submitted-claims-page.js"></script>
 }

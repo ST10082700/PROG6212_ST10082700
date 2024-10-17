@@ -2,5 +2,7 @@
 {
     public class AdminDashboardModel
     {
+        public string WelcomeMessage { get; set; }
+        public List<ClaimModel> Claims { get; set; }
     }
 }

@@ -1,5 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿document.addEventListener('DOMContentLoaded', function () {
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+
+    hamburgerMenu.addEventListener('click', function () {
+        // Navigate to the menu page
+        window.location.href = '/Menu/HamburgerMenu';
+    });
+});

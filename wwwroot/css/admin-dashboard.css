@@ -1,5 +1,85 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿:root {
+    --primary-color: #8B1212;
+    --background-color: #FFFFFF;
+    --text-color: #000000;
+    --button-background: #F1E1E1;
+    --font-family: 'Jost', sans-serif;
 }
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(169, 165, 165, 0.4);
+}
+
+.application-logo {
+    width: 100px;
+    height: 100px;
+}
+
+.hamburger-menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.welcome-message {
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 150%;
+    color: var(--text-color);
+    margin-top: 147px;
+    margin-left: 46px;
+}
+
+.homepage-buttons {
+    margin-top: 105px;
+    margin-left: 30px;
+}
+
+.view-claim-button {
+    display: flex;
+    align-items: center;
+    padding: 50px 30px;
+    gap: 87px;
+    width: 514px;
+    height: 200px;
+    background: var(--button-background);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 60px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.hamburger-menu-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: var(--background-color);
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+    .menu-items a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 24px;
+        font-weight: 600;
+    }

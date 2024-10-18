@@ -5,24 +5,6 @@
     padding: 20px;
 }
 
-.main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-.application-logo img {
-    width: 100px;
-    height: auto;
-}
-
-.hamburger-menu {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
 .page-title {
     font-size: 50px;
     font-weight: 700;
@@ -46,8 +28,14 @@
     color: #000000;
     font-size: 24px;
     font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
+    .claim-button:hover {
+        background-color: #8B1212;
+        color: #FFFFFF;
+    }
+
 .arrow {
-    font-size: 24px;
+    font-size: 30px;
 }

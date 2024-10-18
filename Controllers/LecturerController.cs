@@ -46,19 +46,19 @@ namespace PROG6212___CMCS___ST10082700.Controllers
                 if (model.SupportingDocument != null)
                 {
                     claim.SupportingDocumentName = model.SupportingDocument.FileName;
-                    // TODO: Save the file to a specific location
+                   
                 }
 
                 _claimService.AddClaim(claim);
                 TempData["Message"] = "Claim was successfully submitted";
-                return RedirectToAction("Dashboard");
+                return RedirectToAction("ViewSubmittedClaims");
             }
             return View("EnterClaimDetails", model);
         }
 
         public IActionResult ViewSubmittedClaims()
         {
-            var claims = _claimService.GetClaimsByLecturer("lecturer@keemouniversity.com"); 
+            var claims = _claimService.GetClaimsByLecturer("lecturer@keemouniversity.com");
             return View("~/Views/Shared/SubmittedClaims.cshtml", claims);
         }
 

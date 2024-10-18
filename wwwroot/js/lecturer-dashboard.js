@@ -11,9 +11,13 @@
         window.location.href = '/Lecturer/EnterClaimDetails';
     });
 
-    /*
-    viewClaimsButton.addEventListener('click', function () {
-        window.location.href = '/Lecturer/SubmittedClaims';
-    });
-    */
+    
+    if (viewClaimsButton) {
+        viewClaimsButton.addEventListener('click', function () {
+            window.location.href = '/Lecturer/ViewSubmittedClaims';
+        });
+    } else {
+        console.error('viewClaimsButton element not found');
+    }
+    
 });

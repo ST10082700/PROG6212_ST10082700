@@ -1,5 +1,4 @@
 ﻿@model List<PROG6212___CMCS___ST10082700.Models.ClaimModel>
-
 <div class="submitted-claims-page">
     <header class="main-header">
         <div class="application-logo">
@@ -15,12 +14,19 @@
     </header>
     <h1 class="page-title">Submitted Claims.</h1>
     <div class="claims-list">
-        @foreach (var claim in Model)
+        @if (Model != null && Model.Any())
         {
-            <a href="@Url.Action("ClaimDetails", "Admin", new { id = claim.Id })" class="claim-button">
-                <span class="claim-name">@claim.ClaimName</span>
-                <span class="arrow">→</span>
-            </a>
+            @foreach (var claim in Model)
+            {
+                <a href="@Url.Action("ClaimDetails", "Lecturer", new { id = claim.Id })" class="claim-button">
+                    <span class="claim-name">@claim.ClaimName</span>
+                    <span class="arrow">→</span>
+                </a>
+            }
+        }
+        else
+        {
+            <p>No claims have been submitted yet.</p>
         }
     </div>
 </div>

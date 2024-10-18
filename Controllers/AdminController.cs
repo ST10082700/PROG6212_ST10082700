@@ -31,16 +31,19 @@ namespace PROG6212___CMCS___ST10082700.Controllers
         public IActionResult ClaimDetails(int id)
         {
             var claim = _claimService.GetClaimById(id);
-            return View(claim);
+            return View("~/Views/Shared/ClaimDetails.cshtml", claim);
         }
 
         [HttpPost]
         public IActionResult ApproveClaim(int id)
         {
             var claim = _claimService.GetClaimById(id);
-            claim.Status = "Accepted";
-            _claimService.UpdateClaim(claim);
-            TempData["Message"] = "Claim was successfully accepted";
+            if (claim != null && claim.Status == "Pending")
+            {
+                claim.Status = "Accepted";
+                _claimService.UpdateClaim(claim);
+                TempData["Message"] = "Claim was successfully accepted";
+            }
             return RedirectToAction("ViewSubmittedClaims");
         }
 
@@ -48,10 +51,14 @@ namespace PROG6212___CMCS___ST10082700.Controllers
         public IActionResult RejectClaim(int id)
         {
             var claim = _claimService.GetClaimById(id);
-            claim.Status = "Rejected";
-            _claimService.UpdateClaim(claim);
-            TempData["Message"] = "Claim was successfully rejected";
+            if (claim != null && claim.Status == "Pending")
+            {
+                claim.Status = "Rejected";
+                _claimService.UpdateClaim(claim);
+                TempData["Message"] = "Claim was successfully rejected";
+            }
             return RedirectToAction("ViewSubmittedClaims");
         }
+
     }
 }

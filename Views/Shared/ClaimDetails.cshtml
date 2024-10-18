@@ -1,4 +1,7 @@
 ﻿@model PROG6212___CMCS___ST10082700.Models.ClaimModel
+@{
+    var isManager = User.IsInRole("Manager");
+}
 
 <div class="claim-details">
     <header class="main-header">
@@ -51,18 +54,32 @@
             <h2>Description</h2>
             <p>@Model.Description</p>
         </div>
+
+        @if (!isManager)
+        {
+            <div class="info-group">
+                <h2>Claim status</h2>
+                <p>@Model.Status</p>
+            </div>
+        }
     </div>
 
-    <div class="action-buttons">
-        <form asp-action="ApproveClaim" asp-route-id="@Model.Id" method="post">
-            <button type="submit" class="action-button accept">Accept</button>
-        </form>
-        <form asp-action="RejectClaim" asp-route-id="@Model.Id" method="post">
-            <button type="submit" class="action-button reject">Reject</button>
-        </form>
-    </div>
+    @if (isManager && Model.Status == "Pending")
+    {
+        <div class="action-buttons">
+            <form asp-action="ApproveClaim" asp-controller="Admin" asp-route-id="@Model.Id" method="post">
+                <button type="submit" class="action-button accept">Accept</button>
+            </form>
+            <form asp-action="RejectClaim" asp-controller="Admin" asp-route-id="@Model.Id" method="post">
+                <button type="submit" class="action-button reject">Reject</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <a href="@Url.Action("Dashboard", User.IsInRole("Lecturer") ? "Lecturer" : "Admin")" class="back-button">Back to Dashboard</a>
+    }
 </div>
-
 
 @section Scripts {
     <script src="~/js/claim-details-page.js"></script>

@@ -65,7 +65,7 @@ namespace PROG6212___CMCS___ST10082700.Controllers
         public IActionResult ClaimDetails(int id)
         {
             var claim = _claimService.GetClaimById(id);
-            return View(claim);
+            return View(claim); 
         }
     }
 }

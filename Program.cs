@@ -1,14 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using PROG6212___CMCS___ST10082700.Data;
 using PROG6212___CMCS___ST10082700.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add DbContext configuration
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
-
-// Add IClaimService to the services container
-builder.Services.AddSingleton<IClaimService, ClaimService>();
+// Register ClaimService
+builder.Services.AddScoped<IClaimService, ClaimService>();
 
 var app = builder.Build();
 

@@ -1,48 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PROG6212___CMCS___ST10082700.Models;
+using PROG6212___CMCS___ST10082700.Services;
 
 
 namespace  PROG6212___CMCS___ST10082700.Controllers 
 {
     public class AccountController : Controller
     {
-        private readonly IConfiguration _configuration;
+        private readonly SupabaseAuthService _authService;
 
-        public AccountController(IConfiguration configuration)
+        public AccountController(SupabaseAuthService authService)
         {
-            _configuration = configuration;
+            _authService = authService;
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                switch (model.Username.ToLower())
-                {
-                    case "lecturer@keemouniversity.com":
-                        // Generate JWT token for API access
-                        var token = GenerateJwtToken(model.Username, "Lecturer");
-                        HttpContext.Session.SetString("JwtToken", token);
-                        return RedirectToAction("Dashboard", "Lecturer");
+                var session = await _authService.SignIn(model.Email, model.Password);
 
-                    case "coordinator@keemouniversity.com":
-                        token = GenerateJwtToken(model.Username, "Coordinator");
-                        HttpContext.Session.SetString("JwtToken", token);
-                        TempData["WelcomeMessage"] = "Welcome Coordinator";
-                        return RedirectToAction("Dashboard", "Admin");
+                // Store the session token in a cookie or session
+                HttpContext.Session.SetString("AuthToken", session.AccessToken);
 
-                        // ... rest of the cases
-                }
+                // Redirect based on user role
+                var user = await _authService.GetUser();
+                var userRole = await DetermineUserRole(user);
+
+                return RedirectToAction("Index", userRole);
             }
-            return View(model);
-        }
-
-        private string GenerateJwtToken(string username, string role)
-        {
-            // Implement JWT token generation
-            // You'll need to add JWT authentication configuration in Program.cs
-            return "";
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(model);
+            }
         }
     }
 }

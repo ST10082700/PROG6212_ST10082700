@@ -1,8 +1,8 @@
 ﻿@model PROG6212___CMCS___ST10082700.Models.ClaimModel
 @{
     var isManager = User.IsInRole("Manager");
+    var isHR = User.IsInRole("HR"); 
 }
-
 <div class="claim-details">
     <header class="main-header">
         <div class="application-logo">
@@ -16,45 +16,36 @@
             </svg>
         </button>
     </header>
-
-    <h1 class="page-title">Claim Details.</h1>
-
+    <h1 class="page-title">Claim Details</h1>
     <div class="claim-info">
         <div class="info-group">
             <h2>Claim name</h2>
             <p>@Model.ClaimName</p>
         </div>
-
         <div class="info-group">
             <h2>Date</h2>
             <p>@Model.ClaimDate.ToString("d")</p>
         </div>
-
         <div class="info-group">
             <h2>Hours worked</h2>
             <p>@Model.HoursWorked</p>
         </div>
-
         <div class="info-group">
             <h2>Hourly rates</h2>
             <p>@Model.HourlyRate.ToString("C")</p>
         </div>
-
         <div class="info-group">
             <h2>Total calculated amount</h2>
             <p>@((Model.HoursWorked * Model.HourlyRate).ToString("C"))</p>
         </div>
-
         <div class="info-group">
             <h2>File uploaded</h2>
             <p>@(string.IsNullOrEmpty(Model.SupportingDocumentName) ? "No file uploaded" : Model.SupportingDocumentName)</p>
         </div>
-
         <div class="info-group">
             <h2>Description</h2>
             <p>@Model.Description</p>
         </div>
-
         @if (!isManager)
         {
             <div class="info-group">
@@ -63,13 +54,11 @@
             </div>
         }
     </div>
-
+    
     @if (isManager && Model.Status == "Pending")
     {
         <div class="action-buttons">
-            <form asp-action="ApproveClaim" asp-controller="Admin" asp-route-id="@Model.Id" method="post">
-                <button type="submit" class="action-button accept">Accept</button>
-            </form>
+            <button type="button" class="action-button accept" onclick="showApprovalModal()">Review & Approve</button>
             <form asp-action="RejectClaim" asp-controller="Admin" asp-route-id="@Model.Id" method="post">
                 <button type="submit" class="action-button reject">Reject</button>
             </form>
@@ -79,8 +68,113 @@
     {
         <a href="@Url.Action("Dashboard", User.IsInRole("Lecturer") ? "Lecturer" : "Admin")" class="back-button">Back to Dashboard</a>
     }
+
+    <!-- HR Review Modal -->
+    <div id="hrReviewModal" class="modal">
+        <div class="modal-content">
+            <h2>HR Review</h2>
+            <div class="hr-review-form">
+                <div class="form-group">
+                    <label>Payment Category:</label>
+                    <select id="paymentCategory">
+                        <option value="regular">Regular Hours</option>
+                        <option value="overtime">Overtime</option>
+                        <option value="special">Special Assignment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cost Center:</label>
+                    <input type="text" id="costCenter" />
+                </div>
+                <div class="form-group">
+                    <label>Payment Notes:</label>
+                    <textarea id="paymentNotes"></textarea>
+                </div>
+                <div class="buttons">
+                    <button onclick="submitHRReview()" class="btn-primary">Submit Review</button>
+                    <button onclick="closeModal()" class="btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1000;
+    }
+    .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 8px;
+    }
+    .hr-review-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+</style>
 
 @section Scripts {
     <script src="~/js/claim-details-page.js"></script>
+    <script>
+        let claimId = @Model.Id;
+
+        function showApprovalModal() {
+            document.getElementById('hrReviewModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('hrReviewModal').style.display = 'none';
+        }
+
+        async function submitHRReview() {
+            const reviewData = {
+                claimId: claimId,
+                paymentCategory: document.getElementById('paymentCategory').value,
+                costCenter: document.getElementById('costCenter').value,
+                paymentNotes: document.getElementById('paymentNotes').value
+            };
+
+            try {
+                const response = await fetch('/api/claims/hr-review', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(reviewData)
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Error submitting review');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error submitting review');
+            }
+        }
+    </script>
 }

@@ -29,7 +29,7 @@ namespace PROG6212___CMCS___ST10082700.Controllers
         }
 
         [HttpPost]
-        public IActionResult SubmitClaim(ClaimSubmissionModel model)
+        public async Task<IActionResult> SubmitClaim(ClaimSubmissionModel model)
         {
             if (ModelState.IsValid)
             {
@@ -46,25 +46,27 @@ namespace PROG6212___CMCS___ST10082700.Controllers
                 if (model.SupportingDocument != null)
                 {
                     claim.SupportingDocumentName = model.SupportingDocument.FileName;
-                   
                 }
 
-                _claimService.AddClaim(claim);
+                // Use the async method for adding claims
+                await _claimService.AddClaimAsync(claim);
                 TempData["Message"] = "Claim was successfully submitted";
                 return RedirectToAction("ViewSubmittedClaims");
             }
             return View("EnterClaimDetails", model);
         }
 
-        public IActionResult ViewSubmittedClaims()
+        public async Task<IActionResult> ViewSubmittedClaims()
         {
-            var claims = _claimService.GetClaimsByLecturer("lecturer@keemouniversity.com");
+            // Use the async method for fetching claims by lecturer
+            var claims = await _claimService.GetClaimsByLecturerAsync("lecturer@keemouniversity.com");
             return View("~/Views/Shared/SubmittedClaims.cshtml", claims);
         }
 
-        public IActionResult ClaimDetails(int id)
+        public async Task<IActionResult> ClaimDetails(int id)
         {
-            var claim = _claimService.GetClaimById(id);
+            // Use the async method for fetching a claim by its ID
+            var claim = await _claimService.GetClaimByIdAsync(id);
             return View("~/Views/Shared/ClaimDetails.cshtml", claim);
         }
     }

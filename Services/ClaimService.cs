@@ -2,73 +2,72 @@
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using PROG6212___CMCS___ST10082700.Data;
+using Microsoft.EntityFrameworkCore; 
+
 
 namespace PROG6212___CMCS___ST10082700.Services
 {
     public class ClaimService : IClaimService
     {
-        private readonly List<ClaimModel> _claims;
+        private readonly ApplicationDbContext _context;
 
-        public ClaimService()
+        public ClaimService(ApplicationDbContext context)
         {
-            _claims = new List<ClaimModel>();
+            _context = context;
         }
 
-        // Existing synchronous methods...
+        public async Task<IEnumerable<ClaimModel>> GetAllClaimsAsync()
+        {
+            return await _context.Claims.ToListAsync();
+        }
+
+        public async Task<IEnumerable<ClaimModel>> GetClaimsByLecturerAsync(string lecturerUsername)
+        {
+            return await _context.Claims
+                .Where(c => c.LecturerUsername == lecturerUsername)
+                .ToListAsync();
+        }
+
+        public async Task<ClaimModel> GetClaimByIdAsync(int id)
+        {
+            return await _context.Claims.FindAsync(id);
+        }
+
+        public async Task AddClaimAsync(ClaimModel claim)
+        {
+            _context.Claims.Add(claim);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task<bool> ApproveClaimAsync(int id)
         {
-            var claim = GetClaimById(id);
+            var claim = await _context.Claims.FindAsync(id);
             if (claim != null && claim.Status == "Pending")
             {
                 claim.Status = "Accepted";
-                UpdateClaim(claim);
-                return await Task.FromResult(true);
+                await _context.SaveChangesAsync();
+                return true;
             }
-            return await Task.FromResult(false);
+            return false;
         }
 
         public async Task<bool> RejectClaimAsync(int id)
         {
-            var claim = GetClaimById(id);
+            var claim = await _context.Claims.FindAsync(id);
             if (claim != null && claim.Status == "Pending")
             {
                 claim.Status = "Rejected";
-                UpdateClaim(claim);
-                return await Task.FromResult(true);
+                await _context.SaveChangesAsync();
+                return true;
             }
-            return await Task.FromResult(false);
+            return false;
         }
 
-        // Your existing methods remain the same...
-        public IEnumerable<ClaimModel> GetAllClaims()
+        public async Task UpdateClaimAsync(ClaimModel claim)
         {
-            return _claims;
-        }
-
-        public IEnumerable<ClaimModel> GetClaimsByLecturer(string lecturerUsername)
-        {
-            return _claims.Where(c => c.LecturerUsername == lecturerUsername);
-        }
-
-        public ClaimModel GetClaimById(int id)
-        {
-            return _claims.FirstOrDefault(c => c.Id == id);
-        }
-
-        public void AddClaim(ClaimModel claim)
-        {
-            _claims.Add(claim);
-        }
-
-        public void UpdateClaim(ClaimModel claim)
-        {
-            var existingClaim = _claims.FirstOrDefault(c => c.Id == claim.Id);
-            if (existingClaim != null)
-            {
-                var index = _claims.IndexOf(existingClaim);
-                _claims[index] = claim;
-            }
+            _context.Claims.Update(claim);
+            await _context.SaveChangesAsync();
         }
     }
 }

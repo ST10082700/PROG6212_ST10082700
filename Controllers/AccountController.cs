@@ -26,6 +26,13 @@ namespace PROG6212___CMCS___ST10082700.Controllers
             _supabaseClient = new Client(url, key, options);
         }
 
+        // Add a GET method to render the login view
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {

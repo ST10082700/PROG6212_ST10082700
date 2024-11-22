@@ -37,7 +37,11 @@ namespace PROG6212___CMCS___ST10082700.Controllers
         [HttpPost]
         public async Task<IActionResult> ApproveClaim(int id)
         {
-            var result = await _claimService.ApproveClaimAsync(id);
+            string approverUsername = User.Identity.Name; // Assuming the approver is logged in
+            string comments = "Claim approved."; // Or take from the form if necessary
+
+            var result = await _claimService.ApproveClaimAsync(id, approverUsername);
+
             if (result)
             {
                 TempData["Message"] = "Claim was successfully accepted";
@@ -49,7 +53,11 @@ namespace PROG6212___CMCS___ST10082700.Controllers
         [HttpPost]
         public async Task<IActionResult> RejectClaim(int id)
         {
-            var result = await _claimService.RejectClaimAsync(id);
+            string approverUsername = User.Identity.Name; // Assuming the approver is logged in
+            string comments = "Claim rejected."; // Or take from the form if necessary
+
+            var result = await _claimService.RejectClaimAsync(id, approverUsername);
+
             if (result)
             {
                 TempData["Message"] = "Claim was successfully rejected";

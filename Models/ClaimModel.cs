@@ -13,7 +13,6 @@ namespace PROG6212___CMCS___ST10082700.Models
         public decimal HoursWorked { get; set; }
         public decimal HourlyRate { get; set; }
         public decimal TotalAmount => HoursWorked * HourlyRate;
-        public string Comments { get; set; }
         public bool IsVerified { get; set; }
         public DateTime? VerificationDate { get; set; }
         public string VerifiedBy { get; set; }

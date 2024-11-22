@@ -43,31 +43,20 @@ namespace PROG6212___CMCS___ST10082700.Controllers
                     LecturerUsername = "lecturer@keemouniversity.com"
                 };
 
+                // Check if a supporting document is provided
                 if (model.SupportingDocument != null)
                 {
                     claim.SupportingDocumentName = model.SupportingDocument.FileName;
                 }
 
-                // Use the async method for adding claims
-                await _claimService.AddClaimAsync(claim);
+                // Pass the supporting document along with the claim
+                await _claimService.AddClaimAsync(claim, model.SupportingDocument); // Pass the IFormFile
+
                 TempData["Message"] = "Claim was successfully submitted";
                 return RedirectToAction("ViewSubmittedClaims");
             }
+
             return View("EnterClaimDetails", model);
-        }
-
-        public async Task<IActionResult> ViewSubmittedClaims()
-        {
-            // Use the async method for fetching claims by lecturer
-            var claims = await _claimService.GetClaimsByLecturerAsync("lecturer@keemouniversity.com");
-            return View("~/Views/Shared/SubmittedClaims.cshtml", claims);
-        }
-
-        public async Task<IActionResult> ClaimDetails(int id)
-        {
-            // Use the async method for fetching a claim by its ID
-            var claim = await _claimService.GetClaimByIdAsync(id);
-            return View("~/Views/Shared/ClaimDetails.cshtml", claim);
         }
     }
 }

@@ -5,12 +5,13 @@ namespace PROG6212___CMCS___ST10082700.Services
 {
     public interface IClaimService
     {
-        Task<IEnumerable<ClaimModel>> GetAllClaimsAsync();  // For fetching all claims
-        Task<IEnumerable<ClaimModel>> GetClaimsByLecturerAsync(string lecturerUsername);  // For fetching claims by a specific lecturer
-        Task<ClaimModel> GetClaimByIdAsync(int id);  // For fetching a specific claim by ID
-        Task AddClaimAsync(ClaimModel claim);  // For adding a new claim
-        Task<bool> ApproveClaimAsync(int id);
-        Task<bool> RejectClaimAsync(int id);
+        Task<IEnumerable<ClaimModel>> GetAllClaimsAsync();
+        Task<IEnumerable<ClaimModel>> GetClaimsByLecturerAsync(string lecturerUsername);
+        Task<ClaimModel> GetClaimByIdAsync(int id);
+        Task AddClaimAsync(ClaimModel claim, IFormFile supportingDocument);
+        Task<bool> ApproveClaimAsync(int id, string approverUsername);
+        Task<bool> RejectClaimAsync(int id, string approverUsername);
         Task UpdateClaimAsync(ClaimModel claim);
+        Task<string> GetSupportingDocumentPathAsync(int claimId); 
     }
 }

@@ -24,41 +24,38 @@ namespace PROG6212___CMCS___ST10082700.Controllers
 
         public IActionResult ViewSubmittedClaims()
         {
-            var claims = _claimService.GetAllClaims();
-            return View("~/Views/Shared/SubmittedClaims.cshtml", claims);
+            // The view will now use JavaScript to fetch claims via API
+            return View("~/Views/Shared/SubmittedClaims.cshtml");
         }
 
         public IActionResult ClaimDetails(int id)
         {
-            var claim = _claimService.GetClaimById(id);
-            return View("~/Views/Shared/ClaimDetails.cshtml", claim);
+            // The view will now use JavaScript to fetch claim details via API
+            return View("~/Views/Shared/ClaimDetails.cshtml");
         }
 
         [HttpPost]
-        public IActionResult ApproveClaim(int id)
+        public async Task<IActionResult> ApproveClaim(int id)
         {
-            var claim = _claimService.GetClaimById(id);
-            if (claim != null && claim.Status == "Pending")
+            var result = await _claimService.ApproveClaimAsync(id);
+            if (result)
             {
-                claim.Status = "Accepted";
-                _claimService.UpdateClaim(claim);
                 TempData["Message"] = "Claim was successfully accepted";
+                return Json(new { success = true });
             }
-            return RedirectToAction("ViewSubmittedClaims");
+            return Json(new { success = false });
         }
 
         [HttpPost]
-        public IActionResult RejectClaim(int id)
+        public async Task<IActionResult> RejectClaim(int id)
         {
-            var claim = _claimService.GetClaimById(id);
-            if (claim != null && claim.Status == "Pending")
+            var result = await _claimService.RejectClaimAsync(id);
+            if (result)
             {
-                claim.Status = "Rejected";
-                _claimService.UpdateClaim(claim);
                 TempData["Message"] = "Claim was successfully rejected";
+                return Json(new { success = true });
             }
-            return RedirectToAction("ViewSubmittedClaims");
+            return Json(new { success = false });
         }
-
     }
 }

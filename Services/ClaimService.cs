@@ -7,37 +7,58 @@ namespace PROG6212___CMCS___ST10082700.Services
 {
     public class ClaimService : IClaimService
     {
-        private static List<ClaimModel> _claims = new List<ClaimModel>();
-        private readonly ILogger<ClaimService> _logger;
+        private readonly List<ClaimModel> _claims;
 
-        public ClaimService(ILogger<ClaimService> logger)
+        public ClaimService()
         {
-            _logger = logger;
-            _claims.Add(new ClaimModel
+            _claims = new List<ClaimModel>();
+        }
+
+        // Existing synchronous methods...
+
+        public async Task<bool> ApproveClaimAsync(int id)
+        {
+            var claim = GetClaimById(id);
+            if (claim != null && claim.Status == "Pending")
             {
-                Id = 1,
-                ClaimName = "Test Claim",
-                ClaimDate = DateTime.Now,
-                HoursWorked = 5,
-                HourlyRate = 50,
-                Description = "Test Description",
-                Status = "Pending",
-                LecturerUsername = "lecturer@keemouniversity.com"
-            });
+                claim.Status = "Accepted";
+                UpdateClaim(claim);
+                return await Task.FromResult(true);
+            }
+            return await Task.FromResult(false);
+        }
+
+        public async Task<bool> RejectClaimAsync(int id)
+        {
+            var claim = GetClaimById(id);
+            if (claim != null && claim.Status == "Pending")
+            {
+                claim.Status = "Rejected";
+                UpdateClaim(claim);
+                return await Task.FromResult(true);
+            }
+            return await Task.FromResult(false);
+        }
+
+        // Your existing methods remain the same...
+        public IEnumerable<ClaimModel> GetAllClaims()
+        {
+            return _claims;
+        }
+
+        public IEnumerable<ClaimModel> GetClaimsByLecturer(string lecturerUsername)
+        {
+            return _claims.Where(c => c.LecturerUsername == lecturerUsername);
+        }
+
+        public ClaimModel GetClaimById(int id)
+        {
+            return _claims.FirstOrDefault(c => c.Id == id);
         }
 
         public void AddClaim(ClaimModel claim)
         {
-            claim.Id = _claims.Count + 1;
             _claims.Add(claim);
-            _logger.LogInformation($"Claim added: {claim.Id} - {claim.ClaimName}");
-        }
-
-        public List<ClaimModel> GetClaimsByLecturer(string lecturerUsername)
-        {
-            var claims = _claims.Where(c => c.LecturerUsername == lecturerUsername).ToList();
-            _logger.LogInformation($"Retrieved {claims.Count} claims for lecturer: {lecturerUsername}");
-            return claims;
         }
 
         public void UpdateClaim(ClaimModel claim)
@@ -45,30 +66,9 @@ namespace PROG6212___CMCS___ST10082700.Services
             var existingClaim = _claims.FirstOrDefault(c => c.Id == claim.Id);
             if (existingClaim != null)
             {
-                existingClaim.Status = claim.Status;
-                _logger.LogInformation($"Claim updated: {claim.Id} - New status: {claim.Status}");
+                var index = _claims.IndexOf(existingClaim);
+                _claims[index] = claim;
             }
-        }
-
-        // Implement the missing methods
-        public ClaimModel GetClaimById(int id)
-        {
-            var claim = _claims.FirstOrDefault(c => c.Id == id);
-            if (claim != null)
-            {
-                _logger.LogInformation($"Retrieved claim: {claim.Id} - {claim.ClaimName}");
-            }
-            else
-            {
-                _logger.LogWarning($"Claim with id {id} not found");
-            }
-            return claim;
-        }
-
-        public List<ClaimModel> GetAllClaims()
-        {
-            _logger.LogInformation($"Retrieved all claims. Total count: {_claims.Count}");
-            return _claims;
         }
     }
 }

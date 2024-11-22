@@ -5,10 +5,12 @@ namespace PROG6212___CMCS___ST10082700.Services
 {
     public interface IClaimService
     {
-        void AddClaim(ClaimModel claim);
-        List<ClaimModel> GetClaimsByLecturer(string lecturerUsername);
-        void UpdateClaim(ClaimModel claim);
+        IEnumerable<ClaimModel> GetAllClaims();
+        IEnumerable<ClaimModel> GetClaimsByLecturer(string lecturerUsername);
         ClaimModel GetClaimById(int id);
-        List<ClaimModel> GetAllClaims();
+        void AddClaim(ClaimModel claim);
+        void UpdateClaim(ClaimModel claim);
+        Task<bool> ApproveClaimAsync(int id);
+        Task<bool> RejectClaimAsync(int id);
     }
 }

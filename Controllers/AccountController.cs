@@ -6,9 +6,11 @@ namespace  PROG6212___CMCS___ST10082700.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Login()
+        private readonly IConfiguration _configuration;
+
+        public AccountController(IConfiguration configuration)
         {
-            return View();
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -16,28 +18,31 @@ namespace  PROG6212___CMCS___ST10082700.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Check the username and redirect accordingly
                 switch (model.Username.ToLower())
                 {
                     case "lecturer@keemouniversity.com":
+                        // Generate JWT token for API access
+                        var token = GenerateJwtToken(model.Username, "Lecturer");
+                        HttpContext.Session.SetString("JwtToken", token);
                         return RedirectToAction("Dashboard", "Lecturer");
 
                     case "coordinator@keemouniversity.com":
+                        token = GenerateJwtToken(model.Username, "Coordinator");
+                        HttpContext.Session.SetString("JwtToken", token);
                         TempData["WelcomeMessage"] = "Welcome Coordinator";
                         return RedirectToAction("Dashboard", "Admin");
 
-                    case "manager@keemouniversity.com":
-                        TempData["WelcomeMessage"] = "Welcome Manager";
-                        return RedirectToAction("Dashboard", "Admin");
-
-                    default:
-                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                        break;
+                        // ... rest of the cases
                 }
             }
-
-            // If we got this far, something failed; redisplay the form
             return View(model);
+        }
+
+        private string GenerateJwtToken(string username, string role)
+        {
+            // Implement JWT token generation
+            // You'll need to add JWT authentication configuration in Program.cs
+            return "";
         }
     }
 }

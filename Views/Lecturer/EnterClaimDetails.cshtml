@@ -1,6 +1,6 @@
 ﻿@model PROG6212___CMCS___ST10082700.Models.ClaimSubmissionModel
-@{
-    ViewData["Title"] = "Enter Claim Details";
+@section Styles {
+    <link rel="stylesheet" href="~/css/site.css" />
 }
 
 <div class="enter-claim-page">
@@ -16,38 +16,63 @@
             </svg>
         </button>
     </header>
-    <h1 class="page-title">Enter Your Claim Details.</h1>
+
+    <h1 class="page-title">Enter Your Claim Details</h1>
+
     <form asp-action="SubmitClaim" asp-controller="Lecturer" method="post" enctype="multipart/form-data" id="claimForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
         <div class="form-group">
-            <label asp-for="ClaimName">Claim name</label>
-            <input asp-for="ClaimName" class="form-control" required>
+            <label asp-for="ClaimName">Claim Name</label>
+            <input asp-for="ClaimName" class="form-control" />
+            <span asp-validation-for="ClaimName" class="text-danger"></span>
         </div>
+
         <div class="form-group">
             <label asp-for="ClaimDate">Date</label>
-            <input asp-for="ClaimDate" class="form-control" type="date" required>
+            <input asp-for="ClaimDate" class="form-control" type="date" />
+            <span asp-validation-for="ClaimDate" class="text-danger"></span>
         </div>
+
         <div class="form-group">
-            <label asp-for="HoursWorked">Hours worked</label>
-            <input asp-for="HoursWorked" class="form-control" type="number" step="0.01" required>
+            <label asp-for="HoursWorked">Hours Worked</label>
+            <input asp-for="HoursWorked" class="form-control" type="number" step="0.5" min="0" />
+            <span asp-validation-for="HoursWorked" class="text-danger"></span>
         </div>
+
         <div class="form-group">
-            <label asp-for="HourlyRate">Hourly rates</label>
-            <input asp-for="HourlyRate" class="form-control" type="number" step="0.01" required>
+            <label asp-for="HourlyRate">Hourly Rate</label>
+            <input asp-for="HourlyRate" class="form-control" type="number" step="0.01" min="0" />
+            <span asp-validation-for="HourlyRate" class="text-danger"></span>
         </div>
+
         <div class="form-group">
             <label asp-for="Description">Description</label>
-            <textarea asp-for="Description" class="form-control" required></textarea>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
         </div>
+
         <div class="form-group">
-            <label asp-for="SupportingDocument">File upload</label>
-            <input type="file" id="SupportingDocument" name="SupportingDocument" style="display: none;">
-            <button type="button" class="upload-button">Upload</button>
-            <span id="fileName"></span>
+            <label asp-for="SupportingDocument">Supporting Document</label>
+            <input type="file" id="SupportingDocument" name="SupportingDocument" style="display: none;" />
+            <button type="button" class="upload-button" onclick="document.getElementById('SupportingDocument').click()">Upload</button>
+            <span id="fileName" class="file-name"></span>
+            <span asp-validation-for="SupportingDocument" class="text-danger"></span>
         </div>
-        <button type="submit" class="submit-button">Submit</button>
+
+        <div class="form-group">
+            <label>Total Amount</label>
+            <input type="text" id="totalAmount" class="form-control" readonly />
+        </div>
+
+        <button type="submit" class="submit-button">Submit Claim</button>
     </form>
 </div>
 
 @section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/claim-calculations.js"></script>
     <script src="~/js/enter-claim-page.js"></script>
 }

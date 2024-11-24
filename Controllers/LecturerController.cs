@@ -2,7 +2,6 @@
 using PROG6212___CMCS___ST10082700.Models;
 using PROG6212___CMCS___ST10082700.Services;
 
-
 namespace PROG6212___CMCS___ST10082700.Controllers
 {
     public class LecturerController : Controller
@@ -33,30 +32,55 @@ namespace PROG6212___CMCS___ST10082700.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Recalculate total amount server-side for security
+                decimal totalAmount = model.HoursWorked * model.HourlyRate;
                 var claim = new ClaimModel
                 {
                     ClaimName = model.ClaimName,
                     ClaimDate = model.ClaimDate,
                     HoursWorked = model.HoursWorked,
                     HourlyRate = model.HourlyRate,
+                    TotalAmount = totalAmount,
                     Description = model.Description,
-                    LecturerUsername = "lecturer@keemouniversity.com"
+                    LecturerUsername = User.Identity.Name ?? "lecturer@iievarsitycollege.com",
+                    Status = "Pending",
+                    SubmissionDate = DateTime.UtcNow
                 };
 
-                // Check if a supporting document is provided
                 if (model.SupportingDocument != null)
                 {
                     claim.SupportingDocumentName = model.SupportingDocument.FileName;
                 }
 
-                // Pass the supporting document along with the claim
-                await _claimService.AddClaimAsync(claim, model.SupportingDocument); // Pass the IFormFile
-
-                TempData["Message"] = "Claim was successfully submitted";
+                await _claimService.AddClaimAsync(claim, model.SupportingDocument);
+                TempData["Success"] = "Claim successfully submitted";
                 return RedirectToAction("ViewSubmittedClaims");
             }
-
             return View("EnterClaimDetails", model);
         }
+
+        [HttpPost]
+        [HttpPost]
+        public async Task<IActionResult> UpdateClaimStatus(int claimId, string status)
+        {
+            if (string.IsNullOrEmpty(status) || !new[] { "Approved", "Rejected" }.Contains(status))
+            {
+                return BadRequest("Invalid status");
+            }
+
+            var username = User?.Identity?.Name ?? "UnknownUser";
+
+            bool success = status == "Approved"
+                ? await _claimService.ApproveClaimAsync(claimId, username)
+                : await _claimService.RejectClaimAsync(claimId, username);
+
+            if (!success)
+            {
+                return NotFound("Claim not found");
+            }
+
+            return RedirectToAction("ViewClaims");
+        }
+
     }
 }

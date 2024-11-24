@@ -103,3 +103,24 @@
     background-color: #f44336;
     color: white;
 }
+
+.validation-error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.total-value {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #28a745;
+    margin-left: 1rem;
+}
+
+.is-invalid {
+    border-color: #dc3545;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}

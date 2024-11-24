@@ -3,59 +3,83 @@
 ## Project Overview
 The Contract Monthly Claim System (CMCS) is a web-based application designed to streamline the process of submitting and managing monthly claims for independent contractor lecturers. This system provides an efficient way for lecturers to submit claims, and for coordinators and managers to review and approve them.
 
+## Login Credentials
+All users share the same password for this demo/assignment: `8UXPOXwtDm1x1TrQ`
+
+Available users:
+- Lecturer: lecturer@iievarsitycollege.com
+- Admin: admin@iievarsitycollege.com  
+- HR: hr@iievarsitycollege.com
+- Coordinator: coordinator@iievarsitycollege.com
+
 ## Features
-- User authentication (login functionality)
+- User authentication with role-based access
 - Lecturer Dashboard
-- Claim submission form
-- View submitted claims
-- Admin Dashboard for coordinators and managers
-- Claim approval/rejection functionality
+  - Submit new claims
+  - View claim history and status
+  - Upload supporting documents
+- Admin/HR/Coordinator Dashboard 
+  - Review pending claims
+  - Approve/reject claims with comments
+  - View claim analytics and reports
+- File Management
+  - Secure file upload for supporting documents
+  - File type restrictions (.pdf, .doc, .docx, .xls, .xlsx)
+  - 5MB file size limit
+- Claim Processing
+  - Automated invoice number generation
+  - Claim status tracking (Pending, Approved, Rejected)
+  - Validation of claim details
+  - Transaction support for approval/rejection
 
 ## Technology Stack
 - ASP.NET Core MVC
 - C#
+- Entity Framework Core with Supabase
 - HTML/CSS/JavaScript
-- Entity Framework Core (for future database implementation)
 
 ## Project Structure
-- `Controllers/`: Contains the controller classes that handle HTTP requests
-- `Models/`: Defines the data models used in the application
-- `Views/`: Contains the CSHTML files that define the UI of the application
-- `Services/`: Contains service classes for business logic
-- `wwwroot/`: Stores static files like CSS, JavaScript, and images
+- `Controllers/`: MVC controllers
+- `Models/`: Data models and view models
+- `Views/`: Razor views
+- `Services/`: Business logic and data access
+- `wwwroot/`: Static assets
+- `Data/`: Database context and migrations
 
-## Setup and Running the Application
+## Recent Updates
+- Added file upload validation and security
+- Implemented proper error handling
+- Added claim amount calculation
+- Enhanced data validation
+- Added transaction support for claim processing
+- Improved performance with async operations
+- Added secure file storage and cleanup
+- Enhanced security features
+
+## Setup Instructions
 1. Clone the repository
-2. Open the solution in Visual Studio
+2. Configure connection string for Supabase in appsettings.json
 3. Restore NuGet packages
-4. Build the solution
-5. Run the application
+4. Run database migrations
+5. Build and run the application
 
-## Key Components
+## Security Features
+- Secure file handling
+- Input validation
+- Role-based authorization
+- Transaction support
+- Secure password storage
 
-### Models
-- `ClaimModel`: Represents a claim in the system
-- `ClaimSubmissionModel`: Used for the claim submission form
-- `AdminDashboardModel`: Represents data for the admin dashboard
+## Future Improvements
+- Enhanced reporting features
+- Email notifications
+- Mobile responsiveness improvements
+- Additional file format support
+- Claim templates
+- Batch processing capabilities
 
-### Controllers
-- `LecturerController`: Handles lecturer-related actions
-- `AdminController`: Handles admin-related actions
-- `AccountController`: Manages user authentication
+## Contributing
+This is a school assignment project. Contributions should follow the assignment guidelines.
 
-### Services
-- `ClaimService`: Manages claim-related operations
-
-### Views
-- `Lecturer/Dashboard.cshtml`: Lecturer's main dashboard
-- `Lecturer/EnterClaimDetails.cshtml`: Claim submission form
-- `Admin/Dashboard.cshtml`: Admin's main dashboard
-- `Shared/SubmittedClaims.cshtml`: Displays list of submitted claims
-
-## Current Limitations and Future Improvements
-- Data is currently stored in-memory. Future versions will implement database storage.
-- User authentication is simulated. Implement proper authentication and authorization.
-- File upload functionality for supporting documents needs to be fully implemented.
-- Improve error handling and user feedback.
-- Implement more robust form validation.
-- Add unit tests for controllers and services.
+## License
+For educational purposes only.
